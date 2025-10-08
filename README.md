@@ -1,56 +1,117 @@
-# 📄 Gerador Automático de Frequências
-Este projeto em Python gera automaticamente folhas de frequência em formato .docx para funcionários, utilizando um arquivo .txt com os nomes e um modelo (template) .docx como base.
+#📄 Gerador Automático de Folhas de Frequência
 
-##🛠️ Funcionalidades
-📥 Lê nomes de funcionários a partir de um arquivo .txt.
+Este projeto em Python gera automaticamente folhas de frequência mensais em formato .docx (Word) para vários funcionários, com base em um modelo (template) e em uma lista de nomes e cargos fornecida em um arquivo .txt.
 
-🧾 Usa um template .docx com marcações especiais para gerar documentos personalizados.
+O sistema preenche automaticamente o nome, cargo, mês/ano, além de identificar feriados, sábados e domingos dentro da tabela do documento.
 
-🖨️ Cria um arquivo .docx de frequência para cada funcionário automaticamente.
+##🧰 Funcionalidades
 
-⏱️ Agiliza a emissão mensal de folhas de frequência.
+✅ Gera um arquivo .docx personalizado para cada funcionário.
+✅ Lê automaticamente os nomes e cargos a partir de um arquivo funcionarios.txt.
+✅ Identifica e preenche automaticamente feriados nacionais e estaduais (CE).
+✅ Destaca SÁBADOS, DOMINGOS e FERIADOS na tabela.
+✅ Cria automaticamente uma pasta de saída nomeada conforme o mês e ano.
+✅ Substitui campos (placeholders) no modelo sem perder a formatação do Word.
 
-## 📁 Estrutura esperada
-
+##📁 Estrutura esperada dos arquivos
 projeto/
-├── funcionarios.txt
-├── template.docx
 ├── gerar_frequencias.py
+├── funcionarios.txt
+├── template_frequencia.docx
+└── Frequencias_JANEIRO_2026/   ← (criado automaticamente)
 
-## 📄 Formato do nomes.txt
-Cada linha deve conter um nome completo de funcionário e o cargo onde dele, por exemplo:
+##🧾 Estrutura do arquivo funcionarios.txt
+
+Cada linha deve conter o nome completo do funcionário e o cargo, separados por ponto e vírgula (;):
 
 Ana Paula Silva;Serviços Gerais
 Carlos Eduardo;Jovem Aprendiz
 Fernanda Lima;Administrativo I
-## 🔖 Template template.docx
-Use marcações como {{NOME}} onde o nome do funcionário deve ser inserido, {{CARGO_FUNCIONARIO}} onde o cargo deve ser inserido E {{MES_ANO}} onde deve aparecer o mês e o ano.
+
+##🧩 Estrutura esperada do template_frequencia.docx
+
+O modelo precisa conter placeholders (marcadores de texto) e uma tabela formatada conforme o exemplo abaixo:
+
+###🔖 Placeholders obrigatórios:
+
+{{NOME_FUNCIONARIO}} → será substituído pelo nome.
+
+{{CARGO_FUNCIONARIO}} → será substituído pelo cargo.
+
+{{MES_ANO}} → será substituído pelo mês e ano.
+
+Esses placeholders podem estar no cabeçalho, corpo ou rodapé do documento.
+
+##📊 Estrutura da tabela no template:
+
+A primeira tabela do documento deve ter pelo menos 32 linhas:
+
+Linha 0 → cabeçalho com títulos como “DIA”, “ASSINATURA”, “ENTRADA”, etc.
+
+Linhas 1 a 31 → uma linha para cada dia do mês.
+
+O script preenche automaticamente:
+
+Coluna 0 → número do dia (01, 02, 03...)
+
+Coluna 2 → descrição do dia (Feriado, Sábado ou Domingo)
+
+Linhas além do último dia do mês são limpas automaticamente.
+
+##▶️ Como usar
+
+Coloque o arquivo template_frequencia.docx na raiz do projeto.
+
+Crie o arquivo funcionarios.txt conforme o formato indicado.
+
+No topo do código, edite as variáveis:
+
+ANO = 2026
+MES = 1  # 1=Janeiro, 2=Fevereiro, etc.
 
 
-O script substitui automaticamente essas marcações.
-
-## ▶️ Como usar
-Coloque o template.docx na raiz do projeto.
-
-Crie o funcionarios.txt com os nomes dos funcionários.
-Coloque um template.docx na raiz do projeto com as devidas marcações.
 Execute o script:
 
 python gerar_frequencias.py
-Os arquivos .docx gerados ficarão na pasta frequencias.
 
-## 📦 Requisitos
-Python 3.6 ou superior
 
-Biblioteca python-docx
+Os arquivos gerados ficarão dentro de uma nova pasta, como:
 
-### Para instalar:
+Frequencias_JANEIRO_2026/
+├── Frequencia_JANEIRO_2026_Ana.docx
+├── Frequencia_JANEIRO_2026_Carlos.docx
+└── Frequencia_JANEIRO_2026_Fernanda.docx
 
-pip install python-docx
-✅ Exemplo de saída
-Ao rodar o script, serão gerados arquivos como:
+##🧩 Exemplo de resultado
 
-frequencias/
-├── Ana_Paula_Silva.docx
-├── Carlos_Eduardo.docx
-└── Fernanda_Lima.docx
+Cada arquivo gerado preenche automaticamente o cabeçalho e a tabela:
+
+Nome e cargo do funcionário.
+
+Mês e ano em destaque.
+
+Feriados (ex: “CONFRATERNIZAÇÃO UNIVERSAL”).
+
+“SÁBADO” e “DOMINGO” nas linhas correspondentes.
+
+##📦 Requisitos
+
+Python 3.8 ou superior
+
+##Bibliotecas:
+
+pip install python-docx holidays
+
+##🧠 Observações
+
+O script usa a biblioteca holidays para identificar feriados nacionais e estaduais (Ceará).
+
+É possível adaptar para outros estados alterando a linha:
+
+feriados_ce = holidays.Brazil(state='CE')
+
+
+Se desejar, você pode mudar o nome do template e do arquivo de funcionários nas constantes do início do código:
+
+ARQUIVO_TEMPLATE = 'template_frequencia.docx'
+ARQUIVO_FUNCIONARIO = 'funcionarios.txt'
