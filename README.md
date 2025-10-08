@@ -1,10 +1,10 @@
-#📄 Gerador Automático de Folhas de Frequência
+# 📄 Gerador Automático de Folhas de Frequência
 
 Este projeto em Python gera automaticamente folhas de frequência mensais em formato .docx (Word) para vários funcionários, com base em um modelo (template) e em uma lista de nomes e cargos fornecida em um arquivo .txt.
 
 O sistema preenche automaticamente o nome, cargo, mês/ano, além de identificar feriados, sábados e domingos dentro da tabela do documento.
 
-##🧰 Funcionalidades
+## 🧰 Funcionalidades
 
 ✅ Gera um arquivo .docx personalizado para cada funcionário.
 ✅ Lê automaticamente os nomes e cargos a partir de um arquivo funcionarios.txt.
@@ -13,14 +13,14 @@ O sistema preenche automaticamente o nome, cargo, mês/ano, além de identificar
 ✅ Cria automaticamente uma pasta de saída nomeada conforme o mês e ano.
 ✅ Substitui campos (placeholders) no modelo sem perder a formatação do Word.
 
-##📁 Estrutura esperada dos arquivos
+## 📁 Estrutura esperada dos arquivos
 projeto/
 ├── gerar_frequencias.py
 ├── funcionarios.txt
 ├── template_frequencia.docx
 └── Frequencias_JANEIRO_2026/   ← (criado automaticamente)
 
-##🧾 Estrutura do arquivo funcionarios.txt
+## 🧾 Estrutura do arquivo funcionarios.txt
 
 Cada linha deve conter o nome completo do funcionário e o cargo, separados por ponto e vírgula (;):
 
@@ -28,11 +28,11 @@ Ana Paula Silva;Serviços Gerais
 Carlos Eduardo;Jovem Aprendiz
 Fernanda Lima;Administrativo I
 
-##🧩 Estrutura esperada do template_frequencia.docx
+## 🧩 Estrutura esperada do template_frequencia.docx
 
 O modelo precisa conter placeholders (marcadores de texto) e uma tabela formatada conforme o exemplo abaixo:
 
-###🔖 Placeholders obrigatórios:
+### 🔖 Placeholders obrigatórios:
 
 {{NOME_FUNCIONARIO}} → será substituído pelo nome.
 
@@ -42,7 +42,7 @@ O modelo precisa conter placeholders (marcadores de texto) e uma tabela formatad
 
 Esses placeholders podem estar no cabeçalho, corpo ou rodapé do documento.
 
-##📊 Estrutura da tabela no template:
+## 📊 Estrutura da tabela no template:
 
 A primeira tabela do documento deve ter pelo menos 32 linhas:
 
@@ -58,7 +58,7 @@ Coluna 2 → descrição do dia (Feriado, Sábado ou Domingo)
 
 Linhas além do último dia do mês são limpas automaticamente.
 
-##▶️ Como usar
+## ▶️ Como usar
 
 Coloque o arquivo template_frequencia.docx na raiz do projeto.
 
@@ -82,7 +82,7 @@ Frequencias_JANEIRO_2026/
 ├── Frequencia_JANEIRO_2026_Carlos.docx
 └── Frequencia_JANEIRO_2026_Fernanda.docx
 
-##🧩 Exemplo de resultado
+## 🧩 Exemplo de resultado
 
 Cada arquivo gerado preenche automaticamente o cabeçalho e a tabela:
 
@@ -94,15 +94,15 @@ Feriados (ex: “CONFRATERNIZAÇÃO UNIVERSAL”).
 
 “SÁBADO” e “DOMINGO” nas linhas correspondentes.
 
-##📦 Requisitos
+## 📦 Requisitos
 
 Python 3.8 ou superior
 
-##Bibliotecas:
+Bibliotecas:
 
 pip install python-docx holidays
 
-##🧠 Observações
+## 🧠 Observações
 
 O script usa a biblioteca holidays para identificar feriados nacionais e estaduais (Ceará).
 
